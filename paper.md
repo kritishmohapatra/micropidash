@@ -44,6 +44,22 @@ To provide a stable environment for running on devices with limited memory, `mic
 
 The library has been validated on ESP32 and Raspberry Pi Pico 2 W boards and functions properly even in low-memory conditions typical of microcontroller systems.
 
+# State of the Field
+
+In the MicroPython community, web servers are usually implemented with blocking libraries such as `socket` or simple asynchronous wrappers. Current solutions such as `MicroWebSrv2` offer rich functionality but come with a large memory footprint, making them hard to integrate with devices that have very limited RAM, such as the original ESP8266, or with complex control loops running alongside the web server. `micropidash` bridges this gap by providing a minimalist state-driven dashboard instead of a full-fledged web server.
+
+# Software Design
+
+The software is designed around a singleton class named `Dashboard` that handles a list of widget objects. When a user adds a widget (for example, `add_toggle`), the backend marks its state in a global dictionary. The communication protocol follows a REST-lite paradigm where the frontend pulls the entire state dictionary as a JSON object. This makes the synchronization logic straightforward and prevents the microcontroller from having to handle complicated per-client session states.
+
+# Research Impact Statement
+
+`micropidash` is a low-cost, highly efficient tool for researchers in the Physical Sciences and Engineering. It eliminates the requirement for expensive proprietary DAQ (Data Acquisition) systems in basic laboratory setups by allowing real-time visualization directly on microcontrollers. It has already been used in the MicroPython community, as it is included in the **Awesome MicroPython** list.
+
+# AI Usage Disclosure
+
+The author wishes to acknowledge the use of generative AI tools (such as Google Gemini) during the development of this project. AI assistance was used for optimizing certain asynchronous logic in the MicroPython code, improving the documentation of the library, and organizing this paper according to JOSS formatting guidelines. All suggestions produced by the AI were reviewed, tested, and incorporated by the author to ensure technical correctness and system stability.
+
 # Acknowledgements
 
 The author would like to thank the MicroPython community and the maintainers of the Awesome MicroPython list for their recognition and support.
