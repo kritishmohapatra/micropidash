@@ -1,4 +1,4 @@
-# 🚀 micropidash: Lightweight MicroPython IoT Dashboard
+#  micropidash: Lightweight MicroPython IoT Dashboard
 
 **micropidash** is a high-performance, asynchronous web dashboard library specifically designed for microcontrollers like the **Raspberry Pi Pico 2W** (RP2350/RP2040) and ESP32. It enables the creation of real-time, responsive web interfaces for IoT projects using minimal MicroPython code.
 
@@ -16,7 +16,7 @@
 
 ---
 
-## ✨ Key Features
+##  Key Features
 * **Asynchronous Engine:** Built on `uasyncio` for non-blocking, multi-tasking performance.
 * **Real-Time Sync:** AJAX-based polling ensures all connected devices (Mobile & Laptop) stay synced without page refreshes.
 * **Client-Side Theming:** Every connected user can independently toggle between Dark and Light modes.
@@ -25,14 +25,14 @@
 
 ---
 
-## 📦 Installation
+##  Installation
 
 1. Upload `micropidash.py` to your microcontroller's root directory.
 2. Create a `main.py` file to implement your project logic.
 3. Ensure your device is connected to a stable 2.4GHz Wi-Fi network.
 
 ---
-## 📂 Project Structure
+##  Project Structure
     ├── micropidash/
     │ ├── init.py
     │ └── micropidash.py 
@@ -43,7 +43,7 @@
     │
     ├── README.md
     └── LICENSE
-## 📚 API Documentation
+##  API Documentation
 
 ### `Dashboard(title)`
 Creates a new dashboard instance with the specified title.
@@ -70,7 +70,7 @@ Adds a graphical progress bar, perfect for humidity, tank levels, or battery per
 * **id**: (String) Unique identifier for the widget.
 * **label**: (String) The descriptive text for the progress bar.
 * **color**: (Hex/CSS Color) The color of the fill bar (e.g., `#2196F3` or `red`).
-* **Value Range**: Expects an integer between $0$ and $100$.
+* **Value Range**: Expects an integer between 0 and 100.
 
 ---
 
@@ -80,7 +80,7 @@ Injects new data into an existing widget. This change is pushed instantly to all
 * **value**: (String/Int) The new data to display.
 
 ---
-## 🚀 Quick Start (Simple Example)
+##  Quick Start (Simple Example)
 
 Use this minimal example to test your connection and ensure the dashboard is being served correctly on your local network.
 
@@ -111,7 +111,7 @@ dash.add_level("level", "Signal Strength") # A progress bar (0-100)
 dash.run()
 ```
 
-### 🔌 ESP32 Onboard LED Example
+###  ESP32 Onboard LED Example
 
 
 ```python
@@ -154,16 +154,16 @@ async def main():
 
 asyncio.run(main())
 ```
-## 🤝 Contributing
+##  Contributing
 As an **Electrical Engineering student**, I built **micropidash** to simplify MicroPython IoT development and bridge the gap between hardware and web interfaces. 
 
 If you find bugs, have feature ideas, or want to optimize the code further, feel free to open an **issue** or submit a **pull request**! Let's build the future of embedded systems together.
 
 ---
-## 🌐 Author
+##  Author
 
 **Kritish Mohapatra**  
 🔗 [GitHub](https://github.com/kritishmohapatra)  
 📧 kritishmohapatra06norisk@gmail.com  
 
-✨ *Made with passion for Embedded Systems and MicroPython learners.*
+ *Made with passion for Embedded Systems and MicroPython learners.*
