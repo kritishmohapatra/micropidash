@@ -7,6 +7,7 @@
   <a href="https://www.espressif.com/en/products/socs/esp32"><img src="https://img.shields.io/badge/ESP32-Supported-orange?logo=espressif&logoColor=white" alt="ESP32"></a>
   <a href="https://www.raspberrypi.com/products/raspberry-pi-pico/"><img src="https://img.shields.io/badge/Raspberry%20Pi%20Pico%20 2 W-Compatible-darkgreen?logo=raspberrypi&logoColor=white" alt="Pico 2 W"></a>
   <a href="https://github.com/kritishmohapatra/micropython-sevenseg/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?logo=open-source-initiative&logoColor=white" alt="License"></a>
+  <a href="https://github.com/mcauser/awesome-micropython"><img src="https://awesome.re/mentioned-badge.svg" alt="Mentioned in Awesome MicroPython"></a>
 
   
 </p>
@@ -163,7 +164,7 @@ If you find bugs, have feature ideas, or want to optimize the code further, feel
 ##  Author
 
 **Kritish Mohapatra**  
-🔗 [GitHub](https://github.com/kritishmohapatra)  
-📧 kritishmohapatra06norisk@gmail.com  
+->[GitHub](https://github.com/kritishmohapatra)  
+-> kritishmohapatra06norisk@gmail.com  
 
  *Made with passion for Embedded Systems and MicroPython learners.*
