@@ -23,6 +23,7 @@
 * **Client-Side Theming:** Every connected user can independently toggle between Dark and Light modes.
 * **Order Preservation:** Uses alphabetical sorting for widget IDs to ensure your layout stays exactly as intended.
 * **Memory Efficient:** Optimized for devices with limited RAM, featuring chunked data transmission and frequent garbage collection.
+* **Live Sensor Graphs:** Canvas-based line graphs with rolling data buffer, fill, grid lines, and y-axis labels — no external libraries needed.
 
 ---
 
@@ -73,6 +74,16 @@ Adds a graphical progress bar, perfect for humidity, tank levels, or battery per
 * **color**: (Hex/CSS Color) The color of the fill bar (e.g., `#2196F3` or `red`).
 * **Value Range**: Expects an integer between 0 and 100.
 
+---
+### `add_graph(id, label, color, max_points)`
+Adds a real-time line graph with a rolling data buffer. Renders below the main widget grid at full width.
+* **id**: (String) Unique identifier for the widget.
+* **label**: (String) The descriptive text shown above the graph.
+* **color**: (Hex/CSS Color) The color of the graph line and fill (e.g., `#FF5722`).
+* **max_points**: (Int) Maximum number of data points to display before oldest is dropped. Default is `20`.
+ 
+> **Note:** Graph data is served via a separate `/graph-data` endpoint to keep polling efficient.
+ 
 ---
 
 ### `update_value(id, value)`
@@ -141,10 +152,10 @@ dash.add_label("2_status", "Live Status")
 # 4. Hardware & Web UI Sync Task
 async def sync_task():
     while True:
-        # Dashboard UI state ko physical LED se link karna
+        
         led.value(dash.elements["1_led"]["value"])
         
-        # Dashboard par status update bhejni
+    
         state = "GLOWING" if led.value() else "OFF"
         dash.update_value("2_status", f"LED is {state}")
         
@@ -213,6 +224,72 @@ asyncio.run(main())
 ```
 ![Dashboard UI](dashboard_images/img_2.png)
 ![Dashboard UI](dashboard_images/img_4.jpeg)
+
+---
+## Raspberry Pi Pico 2W — DHT11 + Live Graph Example
+``` python
+from micropidash import Dashboard
+import network, uasyncio as asyncio, dht, machine
+
+# ─── WiFi Setup ───────────────────────────────────────────────────────────────
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect('kritish', 'pass')
+print("Connecting...")
+while not wlan.isconnected(): pass
+print("Connected! IP:", wlan.ifconfig()[0])
+
+# ─── Hardware Setup ───────────────────────────────────────────────────────────
+sensor  = dht.DHT11(machine.Pin(1))        # DHT11 on GP1
+led_pin = machine.Pin("LED", machine.Pin.OUT) 
+
+# ─── Dashboard Setup ──────────────────────────────────────────────────────────
+dash = Dashboard("MicroPiDash v2.0")
+
+# Graphs
+dash.add_graph("temp", "Temperature (°C)", color="#FF5722")
+dash.add_graph("humi", "Humidity (%)",     color="#4CAF50")
+
+# Level bars
+dash.add_level("temp_level", "Temp Level",     color="#FF5722")
+dash.add_level("humi_level", "Humidity Level", color="#4CAF50")
+
+# LED Toggle
+dash.add_toggle("led", "LED")
+
+# ─── Sensor Loop ──────────────────────────────────────────────────────────────
+async def sensor_loop():
+    while True:
+        try:
+            sensor.measure()
+            t = sensor.temperature()
+            h = sensor.humidity()
+
+            dash.update_value("temp",       t)
+            dash.update_value("humi",       h)
+            dash.update_value("temp_level", t)
+            dash.update_value("humi_level", h)
+
+            print(f"Temp: {t}°C  |  Humidity: {h}%")
+        except Exception as e:
+            print("DHT11 error:", e)
+        await asyncio.sleep(2)
+
+# ─── LED Loop ─────────────────────────────────────────────────────────────────
+async def led_loop():
+    while True:
+        led_pin.value(dash.elements["led"]["value"])  
+        await asyncio.sleep_ms(100)
+
+# ─── Main ─────────────────────────────────────────────────────────────────────
+loop = asyncio.get_event_loop()
+loop.create_task(sensor_loop())
+loop.create_task(led_loop())
+dash.run()
+```
+![Dashboard UI](dashboard_images/img_5.png)
+---
+
 ##  Contributing
 As an **Electrical Engineering student**, I built **micropidash** to simplify MicroPython IoT development and bridge the gap between hardware and web interfaces. 
 

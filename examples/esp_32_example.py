@@ -23,10 +23,10 @@ dash.add_label("2_status", "Live Status")
 # 4. Hardware & Web UI Sync Task
 async def sync_task():
     while True:
-        # Dashboard UI state ko physical LED se link karna
+       
         led.value(dash.elements["1_led"]["value"])
         
-        # Dashboard par status update bhejni
+       
         state = "GLOWING" if led.value() else "OFF"
         dash.update_value("2_status", f"LED is {state}")
         
