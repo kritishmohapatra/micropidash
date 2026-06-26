@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="micropidash",
-    version="1.0.0",
+    version="2.0.1",  
     description="A lightweight web dashboard for MicroPython (ESP32, Pico W)",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
@@ -11,6 +11,7 @@ setup(
     url="https://github.com/kritishmohapatra/micropidash",
     license="MIT",
     packages=find_packages(),
+        keywords=["micropython", "esp32", "pico", "dashboard", "iot", "fpga", "shrikefi"], 
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
