@@ -1,0 +1,19 @@
+[build-system]
+requires = ["flit_core>=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "micropidash"
+version = "2.0.1"
+description = "A lightweight web dashboard for MicroPython (ESP32, Pico W)"
+readme = "README.md"
+authors = [{name = "Kritish Mohapatra", email = "kritishmohapatra06norisk@gmail.com"}]
+license = {text = "MIT"}
+keywords = ["micropython", "esp32", "pico", "dashboard", "iot", "fpga", "shrikefi"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/kritishmohapatra/micropidash"
